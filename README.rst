@@ -3,6 +3,8 @@ elastic-companion
 
 A command-line tool and API for various Elasticsearch operations.
 
+I AM TRIGGERING CODESHIP!
+
 Install
 -------
 
