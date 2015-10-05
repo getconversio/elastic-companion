@@ -35,6 +35,9 @@ setup_parser = command_parser.add_parser('setup', help='Perform index setup')
 setup_parser.add_argument('-r', '--reset', action='store_true',
                           help="""Reset indexes before updating, BE CAREFUL,
                           THIS WILL DELETE ALL DATA""")
+setup_parser.add_argument('-p', '--data-path',
+                          help='Directory containing the setup data files',
+                          default='./data')
 setup_parser.set_defaults(func=setup.run)
 
 # Create parser for status command

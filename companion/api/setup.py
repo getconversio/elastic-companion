@@ -1,9 +1,11 @@
 """Setup API."""
+import os
 import glob
 import json
 import logging
 
 from . import util
+from .. import error
 
 __all__ = ['IndexMapper']
 logger = logging.getLogger(__name__)
@@ -15,6 +17,9 @@ class IndexMapper:
 
     """
     def __init__(self, url, data_path='./data', delete_indexes=False):
+        if not os.path.exists(data_path):
+            raise error.CompanionException(
+                'Data directory {} does not exist'.format(data_path))
         self.data_path = data_path
         self.delete_indexes = delete_indexes
 
