@@ -44,3 +44,11 @@ Testing
 Use ``nose``::
 
     $ python setup.py nosetests
+
+Deploying
+---------
+
+You need access to the pypi repository first, then it's just a matter of::
+
+    $ python setup.py sdist bdist_wheel
+    $ twine upload dist/*
