@@ -7,7 +7,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='elastic-companion',
-    version='0.9.6',
+    version='1.0.0',
     description='Useful commands for Elasticsearch',
     long_description=long_description,
     url='https://github.com/receiptful/elastic-companion',
@@ -15,7 +15,7 @@ setup(
     author_email='dev@receiptful.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: MIT License',
