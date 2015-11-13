@@ -1,15 +1,12 @@
-# This script should usually only be run once for a deployment, but can also be
-# augmented later with new mappings. In general, using the dynamic mapping
-# feature will work just fine.
+"""elastic-companion cli runner. To see the available options, run:
 
-# Tips for anyone reading this.
-# - Email fields: By default, they are automatically analyzed and hence parsed
-# into tokens before and after the @ which is probably not very good for
-# queries.
+    >>> companion -h
+
+"""
 import logging
 import argparse
 
-from . import setup, health, reindex, backup
+from . import setup, health, reindex, backup, deletebulk
 
 
 # Create main parser
@@ -40,7 +37,7 @@ setup_parser.add_argument('-p', '--data-path',
                           default='./data')
 setup_parser.set_defaults(func=setup.run)
 
-# Create parser for status command
+# Create parser for reindex command
 reindex_parser = command_parser.add_parser('reindex', help='Re-index an index')
 reindex_parser.add_argument('source_index_name',
                             help='The name of the index to re-index')
@@ -69,6 +66,16 @@ s3_parser.add_argument('-r', '--region', help='The name of aws region',
 s3_parser.add_argument('-u', '--user', help='User key for s3')
 s3_parser.add_argument('-s', '--secret', help='Secret key for s3')
 s3_parser.set_defaults(func=backup.s3_run)
+
+# Create parser for delete command
+delete_parser = command_parser.add_parser('delete', help='Delete documents')
+delete_parser.add_argument('index_name',
+                           help='The name of the index to delete in')
+delete_parser.add_argument('doc_type',
+                           help='The name of the document type to delete from')
+delete_parser.add_argument('-q', '--query',
+                           help='Optional query object')
+delete_parser.set_defaults(func=deletebulk.run)
 
 
 def main():
