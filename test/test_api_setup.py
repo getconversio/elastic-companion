@@ -1,4 +1,4 @@
-"""Util test functions."""
+"""Setup test functions."""
 from unittest import TestCase
 
 from companion import error
