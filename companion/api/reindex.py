@@ -14,7 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 def date_reindex(url, source_index_name, target_index_name, date_field=None,
-                 delete_docs=False, query=None, use_same_id=True):
+                 delete_docs=False, query=None, use_same_id=True,
+                 scan_kwargs={}):
     """Re-index all documents in a source index to the target index.
 
     The re-index takes an optional query to limit the source documents.
@@ -42,6 +43,9 @@ def date_reindex(url, source_index_name, target_index_name, date_field=None,
     :param use_same_id: Whether or not to use the same ID as the source. If
         True, will use the exact same ID as the source. If False, will re-create
         a new ID automatically. Default is True.
+    :param scan_kwargs: Extra arguments for the index scanner. Similar to
+        scan_kwargs in helpers.reindex
+    :type scan_kwargs: dict
     :returns: The result of an iterating bulk operation.
 
     """
@@ -53,7 +57,8 @@ def date_reindex(url, source_index_name, target_index_name, date_field=None,
                         index=source_index_name,
                         query=query,
                         scroll='5m',
-                        fields=('_source', '_parent', '_routing', '_timestamp'))
+                        fields=('_source', '_parent', '_routing', '_timestamp'),
+                        **scan_kwargs)
 
     def _docs_to_operations(hits):
         for h in hits:

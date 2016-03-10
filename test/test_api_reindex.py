@@ -104,3 +104,22 @@ class TestDateReindex(TestCase):
 
         cnt = self.client.count(index='companiontesttarget')
         self.assertEqual(cnt['count'], 2)
+
+    def test_scan_kwargs(self):
+        """It should use the scanner arguments"""
+        create_test_data()
+
+        scan_kwargs = {
+            'doc_type': 'advanced'
+        }
+
+        reindex.date_reindex('http://localhost:9200',
+                             'companiontest',
+                             'companiontesttarget',
+                             scan_kwargs=scan_kwargs)
+
+        # Remember to refresh
+        self.client.indices.refresh(index='companiontesttarget')
+
+        cnt = self.client.count(index='companiontesttarget')
+        self.assertEqual(cnt['count'], 1)
