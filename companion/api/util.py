@@ -18,7 +18,8 @@ def get_client(url):
     return elasticsearch.Elasticsearch(url,
                                        use_ssl=is_ssl,
                                        verify_certs=is_ssl,
-                                       ca_certs=certifi.where())
+                                       ca_certs=certifi.where(),
+                                       retry_on_timeout=True)
 
 
 def tar_gz_directory(directory, target_path):
