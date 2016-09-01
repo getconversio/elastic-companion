@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  elasticsearch:
+    image: elasticsearch:1.7.5
+    ports:
+      - "9200:9200"
+
+  companion:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200

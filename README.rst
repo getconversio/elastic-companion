@@ -19,6 +19,9 @@ an API rather than from the command-line.
 Developing
 ----------
 
+If you are using Docker and Docker Compose, then you don't need to fiddle with
+python and pip manually. Otherwise, see below.
+
 Download Python 3, then::
 
     $ pyvenv-3.X venv
@@ -32,7 +35,7 @@ Then::
     $ pyvenv-3.X venv --without-pip
     $ source venv/bin/activate
     $ cd venv
-    $ wget https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py
+    $ wget https://bootstrap.pypa.io/get-pip.py
     $ python3 get-pip.py
     $ cd ..
     $ pip3 install -r requirements.txt
@@ -43,7 +46,11 @@ Testing
 
 Use ``nose``::
 
-    $ python setup.py nosetests
+    $ nosetests
+
+or::
+
+    $ docker-compose run --rm companion nosetests
 
 Deploying
 ---------

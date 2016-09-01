@@ -1,12 +1,16 @@
 """Testing."""
+import os
 import datetime
 
 from elasticsearch import Elasticsearch
 
 
+es_url = os.environ.get('ELASTICSEARCH_URL', 'http://localhost:9200')
+
+
 def create_test_data():
     # Add some test data to Elasticsearch.
-    es = Elasticsearch('http://localhost:9200')
+    es = Elasticsearch(es_url)
     es.indices.delete(index='companiontest', ignore=[404])
     es.indices.create(index='companiontest',
                       body={

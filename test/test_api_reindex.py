@@ -1,15 +1,16 @@
 """Reindex test functions."""
+import os
 from unittest import TestCase
 
 from companion.api import reindex, util
 
-from . import create_test_data
+from . import create_test_data, es_url
 
 
 class TestDateReindex(TestCase):
 
     def setUp(self):
-        self.client = util.get_client('http://localhost:9200')
+        self.client = util.get_client(es_url)
         self.client.indices.delete(index='companiontesttarget*', ignore=[404])
 
     def test_empty_arguments(self):
@@ -20,7 +21,7 @@ class TestDateReindex(TestCase):
     def test_empty_query(self):
         """It should reindex all documents"""
         create_test_data()
-        reindex.date_reindex('http://localhost:9200',
+        reindex.date_reindex(es_url,
                              'companiontest',
                              'companiontesttarget')
 
@@ -39,7 +40,7 @@ class TestDateReindex(TestCase):
     def test_new_ids(self):
         """It should create new IDs if specified"""
         create_test_data()
-        reindex.date_reindex('http://localhost:9200',
+        reindex.date_reindex(es_url,
                              'companiontest',
                              'companiontesttarget',
                              use_same_id=False)
@@ -59,7 +60,7 @@ class TestDateReindex(TestCase):
     def test_temporal_date(self):
         """It should use a date field for index naming"""
         create_test_data()
-        reindex.date_reindex('http://localhost:9200',
+        reindex.date_reindex(es_url,
                              'companiontest',
                              'companiontesttarget-{:%Y-%m-%d}',
                              date_field='timestamp')
@@ -94,7 +95,7 @@ class TestDateReindex(TestCase):
                 }
             }
         }
-        reindex.date_reindex('http://localhost:9200',
+        reindex.date_reindex(es_url,
                              'companiontest',
                              'companiontesttarget',
                              query=query)
@@ -113,7 +114,7 @@ class TestDateReindex(TestCase):
             'doc_type': 'advanced'
         }
 
-        reindex.date_reindex('http://localhost:9200',
+        reindex.date_reindex(es_url,
                              'companiontest',
                              'companiontesttarget',
                              scan_kwargs=scan_kwargs)
