@@ -4,13 +4,13 @@ from unittest import TestCase
 from companion import error
 from companion.api import deletebulk, util
 
-from . import create_test_data
+from . import create_test_data, es_url
 
 
 class TestDeleteByQuery(TestCase):
 
     def setUp(self):
-        self.client = util.get_client('http://localhost:9200')
+        self.client = util.get_client(es_url)
 
     def test_empty_arguments(self):
         """It should require url, index and doc type."""
@@ -20,7 +20,7 @@ class TestDeleteByQuery(TestCase):
     def test_empty_query(self):
         """It should allow an empty query"""
         create_test_data()
-        deletebulk.delete_by_query('http://localhost:9200',
+        deletebulk.delete_by_query(es_url,
                                    'companiontest',
                                    'simple',
                                    None)
@@ -34,7 +34,7 @@ class TestDeleteByQuery(TestCase):
     def test_ensure_specific_doc_type(self):
         """It should only delete the given doc type"""
         create_test_data()
-        deletebulk.delete_by_query('http://localhost:9200',
+        deletebulk.delete_by_query(es_url,
                                    'companiontest',
                                    'simple',
                                    None)
@@ -66,7 +66,7 @@ class TestDeleteByQuery(TestCase):
                 }
             }
         }
-        deletebulk.delete_by_query('http://localhost:9200',
+        deletebulk.delete_by_query(es_url,
                                    'companiontest',
                                    'simple',
                                    query)

@@ -11,6 +11,8 @@ from elasticsearch import Elasticsearch
 
 from companion.api import util
 
+from . import es_url
+
 
 class TestPretty(TestCase):
     def test_pretty_basic(self):
@@ -29,8 +31,9 @@ class TestPretty(TestCase):
 class TestGetClient(TestCase):
     def test_get_client(self):
         """It should return an Elasticsearch client."""
-        client = util.get_client('http://localhost:9200')
+        client = util.get_client(es_url)
         self.assertIsInstance(client, Elasticsearch)
+        self.assertTrue(client.transport.retry_on_timeout)
 
 
 class TestTarGzDirectory(TestCase):

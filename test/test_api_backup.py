@@ -8,7 +8,7 @@ from unittest import TestCase
 from companion import error
 from companion.api import backup, util
 
-from . import create_test_data
+from . import create_test_data, es_url
 
 
 class TempfileTestCase(TestCase):
@@ -46,7 +46,7 @@ class TestFetchAndZip(TempfileTestCase):
 
     def test_not_exists(self):
         """It should not crash on indexes that do not exist."""
-        tmpdir, zipfiles = backup._fetch_and_zip('http://localhost:9200',
+        tmpdir, zipfiles = backup._fetch_and_zip(es_url,
                                                  'fooindexname')
         self.assertIsNone(tmpdir)
         self.assertIsNone(zipfiles)
@@ -54,7 +54,7 @@ class TestFetchAndZip(TempfileTestCase):
     def test_non_empty(self):
         """It should create zip-files by default."""
         create_test_data()
-        tmpdir, zipfiles = backup._fetch_and_zip('http://localhost:9200',
+        tmpdir, zipfiles = backup._fetch_and_zip(es_url,
                                                  'companiontest')
         self.assertEqual(len(zipfiles), 2)
         zip1 = os.path.join(tmpdir, 'companiontest_simple.zip')
@@ -65,7 +65,7 @@ class TestFetchAndZip(TempfileTestCase):
     def test_non_empty(self):
         """It should create zip-files by default."""
         create_test_data()
-        tmpdir, zipfiles = backup._fetch_and_zip('http://localhost:9200',
+        tmpdir, zipfiles = backup._fetch_and_zip(es_url,
                                                  'companiontest')
         self.assertEqual(len(zipfiles), 2)
         zip1 = os.path.join(tmpdir, 'companiontest_simple.zip')
@@ -76,7 +76,7 @@ class TestFetchAndZip(TempfileTestCase):
     def test_non_empty_small_batchsize(self):
         """It should create zip-files by default."""
         create_test_data()
-        tmpdir, zipfiles = backup._fetch_and_zip('http://localhost:9200',
+        tmpdir, zipfiles = backup._fetch_and_zip(es_url,
                                                  'companiontest',
                                                  batch_size=1)
         self.assertEqual(len(zipfiles), 2)
@@ -90,7 +90,7 @@ class TestFetchAndTar(TempfileTestCase):
 
     def test_not_exists(self):
         """It should not crash on indexes that do not exist."""
-        tmpdir, tarfiles = backup._fetch_and_tar('http://localhost:9200',
+        tmpdir, tarfiles = backup._fetch_and_tar(es_url,
                                                  'fooindexname')
         self.assertIsNone(tmpdir)
         self.assertIsNone(tarfiles)
@@ -98,7 +98,7 @@ class TestFetchAndTar(TempfileTestCase):
     def test_non_empty(self):
         """It should create zip-files by default."""
         create_test_data()
-        tmpdir, tarfiles = backup._fetch_and_tar('http://localhost:9200',
+        tmpdir, tarfiles = backup._fetch_and_tar(es_url,
                                                  'companiontest')
         self.assertEqual(len(tarfiles), 2)
         tar1 = os.path.join(tmpdir, 'companiontest_simple.tar.gz')
