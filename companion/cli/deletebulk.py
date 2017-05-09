@@ -3,7 +3,7 @@
 For Example:
 
     >>> companion delete myindex mydoctype -q \
-    >>> '{"query":{"filtered":{"filter":{"range":{"timestamp":{"gt":"2015"}}}}}'
+    >>> '{"query":{"bool":{"filter":{"range":{"timestamp":{"gt":"2015"}}}}}'
 
 For more complicated queries, you can store the query in a JSON file:
 

@@ -57,7 +57,6 @@ def date_reindex(url, source_index_name, target_index_name, date_field=None,
                         index=source_index_name,
                         query=query,
                         scroll='5m',
-                        fields=('_source', '_parent', '_routing', '_timestamp'),
                         **scan_kwargs)
 
     def _docs_to_operations(hits):

@@ -1,0 +1,21 @@
+language: python
+python:
+- '3.5'
+- '3.6'
+addons:
+  apt:
+    packages:
+      - oracle-java8-set-default
+before_install:
+- curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.4.0.deb
+  && sudo dpkg -i --force-confnew elasticsearch-5.4.0.deb && sudo service elasticsearch
+  restart
+install:
+- pip install -r requirements.txt
+before_script:
+- sleep 30
+script:
+- nosetests
+notifications:
+  slack:
+    secure: JmRYLg4niVnu8YewGRByAZhDQsTHT7T/H26lKXatR48999cKwPPctkpNjyV/+O0ZMiNA1dATCSZa9x3cd38Vhana7BqruO8K3LrDlWjPlIYyrZDMO72Daqd78KdwGtlFJm7XmMo5FDlC2SWrdNwdrxw1Js8Nhv+U5BbFONhMB1U/yJOYKFU5Ez00VcyQXpNxfTkgDr0O2om2fsSaP4Xtz3Z5CpB8Snbe7SjmDYjUz9H1lT4YT3L008jxAHdZbPct2xSUHl+M/zJHTtppR7Xf2d2RgYXlhcBtPF7+7dEEXa0RCQ+KFZbpm9AGpEAwzghUVyfVxtP0N0iMeyW0S0c4a/DCRivVf/ia//pePBU2AkjMrAbPIqI2xb4BO/NIk7VRQDumjXpuSaQn5LSXEWCgNMgIXAMQfYIJhDDupDO6ErGjIGlDnhYvaHHZYqmSkfO06OV9hH/cLJhU4ag6LRuE/Rtanh3YNlr+SBsYpSdh//6/steGx1ukOfmkYQk0H/3LZ5/FpE9LBp6z8teSac9wTHA3HNptx+uNQOHRr2DL/P/TZ9J1pL1mxSFpgY+wDBAl4D64VFXMRbbSZd5PxwInCnpZzQKCDdG4uDogIoTL4MxfHZW/bE603E9iwlJ94ZSsWMYJXKG0cUo3TOkWGoKNxq3eL8rS0tq6Wmg8YdWY/SA=

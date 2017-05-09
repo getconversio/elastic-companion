@@ -7,12 +7,12 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='elastic-companion',
-    version='1.4.0',
+    version='5.0.0',
     description='Useful commands for Elasticsearch',
     long_description=long_description,
-    url='https://github.com/receiptful/elastic-companion',
-    author='Receiptful',
-    author_email='dev@receiptful.com',
+    url='https://github.com/getconversio/elastic-companion',
+    author='Conversio',
+    author_email='dev@conversio.com',
     license='MIT',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -24,8 +24,8 @@ setup(
     keywords='elasticsearch cli',
     packages=['companion', 'companion.api', 'companion.cli'],
     install_requires=[
-        'elasticsearch>=1.9.0,<2.0.0',
-        'certifi==2016.8.31',
+        'elasticsearch>=5.0.0,<6.0.0',
+        'certifi>=2016.8.31',
         'boto3==1.4.0',
         'python-dateutil==2.5.3'
     ],
