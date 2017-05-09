@@ -1,6 +1,9 @@
 elastic-companion
 =================
 
+**Note**: This is the legacy 1.X branch of elastic-companion which has support
+for Elasticsearch 1.X.
+
 A command-line tool and API for various Elasticsearch operations.
 
 Install
