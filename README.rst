@@ -3,7 +3,8 @@ elastic-companion
 
 A command-line tool and API for various Elasticsearch operations.
 
-[![Build Status](https://travis-ci.org/getconversio/elastic-companion.svg?branch=master)](https://travis-ci.org/getconversio/elastic-companion)
+.. image:: https://travis-ci.org/getconversio/elastic-companion.svg?branch=master
+    :target: https://travis-ci.org/getconversio/elastic-companion
 
 Install
 -------
