@@ -1,7 +1,6 @@
 """Bulk delete test functions."""
 from unittest import TestCase
 
-from companion import error
 from companion.api import deletebulk, util
 
 from . import create_test_data, es_url
@@ -55,7 +54,7 @@ class TestDeleteByQuery(TestCase):
         # Deletes everything after 1/1
         query = {
             "query": {
-                "filtered": {
+                "bool": {
                     "filter": {
                         "range": {
                             "timestamp": {

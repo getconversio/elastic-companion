@@ -3,10 +3,16 @@ elastic-companion
 
 A command-line tool and API for various Elasticsearch operations.
 
+[![Build Status](https://travis-ci.org/getconversio/elastic-companion.svg?branch=master)](https://travis-ci.org/getconversio/elastic-companion)
+
 Install
 -------
 
     pip install elastic-companion
+
+**Note**: The 1.X versions of elastic-companion support Elasticsearch 1.X and
+the 5.X versions support Elasticsearch 5.X. This is similar to the versioning
+of the official library
 
 Commands
 --------

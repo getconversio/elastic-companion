@@ -1,5 +1,4 @@
 """Reindex test functions."""
-import os
 from unittest import TestCase
 
 from companion.api import reindex, util
@@ -84,7 +83,7 @@ class TestDateReindex(TestCase):
         # Re-index documents created after 2015-01-01.
         query = {
             "query": {
-                "filtered": {
+                "bool": {
                     "filter": {
                         "range": {
                             "timestamp": {
