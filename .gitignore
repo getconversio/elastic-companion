@@ -47,3 +47,6 @@ docs/_build/
 
 # Virtualenv
 venv/
+
+# Data dir for testing
+data/

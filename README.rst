@@ -23,6 +23,25 @@ To see the list of commands, use the ``-h`` or ``--help`` flag.
 Each command has a corresponding Python module that can be imported and used as
 an API rather than from the command-line.
 
+### `setup`
+
+The `setup` command will load all indexes, mappings, templates and scripts from the data directory, and send them to ES.
+
+#### `/scripts`
+
+The scripts folder should have `.json` files which act as script descriptors. Each file should have the content:
+
+```json
+{
+    "id": "SCRIPT_ID",
+    "lang": "SCRIPT_LANG",
+    "body": "SCRIPT_BODY",
+    "path": "SCRIPT_BODY_FILE_PATH"
+}
+```
+
+While `id` and `lang` are required and should match the requirements of ES. These will determine how each script is stored. The values `body` and `path`, however, are mutually exclusive and only one is required. You can specify the script's body directly inline under `body`, or point to a file using `path`.
+
 Developing
 ----------
 

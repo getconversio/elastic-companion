@@ -30,6 +30,7 @@ class IndexMapper:
         indexes = self.get_settings()
         mappings = self.get_mappings()
         templates = self.get_templates()
+        scripts = self.get_scripts()
 
         for index_name in indexes:
             if self.delete_indexes:
@@ -45,6 +46,9 @@ class IndexMapper:
 
         for template_name in templates:
             self.update_template(template_name, templates[template_name])
+
+        for script in scripts:
+            self.update_script(script['id'], script['lang'], script['body'])
 
     def get_settings(self):
         """Builds a settings dict from indexes in the index folder.
@@ -120,6 +124,43 @@ class IndexMapper:
             mappings[index_name][type_name] = type_mapping
         return mappings
 
+    def get_scripts(self):
+        """Builds a stored scripts list from script descriptions in the scripts
+        folder.
+
+        The list has objects in the format:
+        {
+            id,
+            lang,
+            body: { script }
+        }
+        """
+        scripts = []
+        for path in glob.iglob(self.data_path + '/scripts/*.json'):
+            logger.debug('Reading script from {}'.format(path))
+            script = None
+            with open(path) as f:
+                script = json.load(f)
+
+            script_body = None
+            if 'body' in script:
+                logger.debug('Reading script body inline')
+                script_body = script['body']
+            elif 'path' in script:
+                logger.debug('Reading script body from {}'.format(script['path']))
+                with open(self.data_path + '/scripts/' + script['path']) as sf:
+                    script_body = sf.read()
+            else:
+                raise 'No script body given'
+
+            scripts.append({
+                'id': script['id'],
+                'lang': script['lang'],
+                'body': { 'script': script_body }
+            })
+        return scripts
+
+
     def create_index(self, index_name, settings):
         logger.info('Creating index {}'.format(index_name))
         self.es.indices.create(index=index_name, body=settings, ignore=400)
@@ -139,3 +180,7 @@ class IndexMapper:
         logger.info('Updating template definition {}'.format(template_name))
         self.es.indices.put_template(name=template_name,
                                      body=template_definition)
+
+    def update_script(self, id, lang, body):
+        logger.info('Updating script {}'.format(id))
+        self.es.put_script(id=id, lang=lang, body=body)
