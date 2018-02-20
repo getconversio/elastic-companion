@@ -16,6 +16,7 @@ class IndexMapper:
     updates the target elasticsearch host with the mapping definitions.
 
     """
+
     def __init__(self, url, data_path='./data', delete_indexes=False):
         if not os.path.exists(data_path):
             raise error.CompanionException(
@@ -147,7 +148,8 @@ class IndexMapper:
                 logger.debug('Reading script body inline')
                 script_body = script['body']
             elif 'path' in script:
-                logger.debug('Reading script body from {}'.format(script['path']))
+                logger.debug(
+                    'Reading script body from {}'.format(script['path']))
                 with open(self.data_path + '/scripts/' + script['path']) as sf:
                     script_body = sf.read()
             else:
@@ -156,10 +158,9 @@ class IndexMapper:
             scripts.append({
                 'id': script['id'],
                 'lang': script['lang'],
-                'body': { 'script': script_body }
+                'body': {'script': script_body}
             })
         return scripts
-
 
     def create_index(self, index_name, settings):
         logger.info('Creating index {}'.format(index_name))

@@ -105,7 +105,8 @@ class TestZipDirectory(TestCase):
         # before.
         checkdir = os.path.join(self.tmpdir, 'check/')
         os.mkdir(checkdir)
-        check_filename = os.path.join(checkdir, 'test/{}'.format(self.filename))
+        check_filename = os.path.join(
+            checkdir, 'test/{}'.format(self.filename))
         with zipfile.ZipFile(zip_path) as f:
             f.extractall(checkdir)
 
